@@ -20,17 +20,22 @@ public class EncryptionUI extends Application {
         inputText.setPrefHeight(150);
 
         Button encryptButton = new Button("🔒 Encrypt");
-        
+
         encryptButton.setOnAction(event -> {
             String text = inputText.getText();
 
-        try {
-        String encryptedText = AESEncryption.encrypt(text);
+            if (text.trim().isEmpty()) {
+                System.out.println("Please enter some text.");
+                return;
+            }
 
-        System.out.println("Encrypted text: " + encryptedText);
+            try {
+                String encryptedText = AESEncryption.encrypt(text);
+
+                System.out.println("Encrypted text: " + encryptedText);
 
             } catch (Exception e) {
-            e.printStackTrace();
+                e.printStackTrace();
             }
         });
 
