@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
 
 public class EncryptionUI extends Application {
 
@@ -18,6 +19,12 @@ public class EncryptionUI extends Application {
         TextArea inputText = new TextArea();
         inputText.setPromptText("Type something...");
         inputText.setPrefHeight(150);
+
+        Label characterCount = new Label("Characters: 0");
+
+    inputText.textProperty().addListener((observable, oldText, newText) -> {
+    characterCount.setText("Characters: " + newText.length());
+        });
 
         Button encryptButton = new Button("🔒 Encrypt");
 
@@ -44,7 +51,8 @@ public class EncryptionUI extends Application {
                 title,
                 inputLabel,
                 inputText,
-                encryptButton
+                encryptButton,
+                characterCount
         );
 
         Scene scene = new Scene(layout, 500, 400);
