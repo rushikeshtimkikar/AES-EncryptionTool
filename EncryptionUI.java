@@ -22,9 +22,16 @@ public class EncryptionUI extends Application {
 
         Label characterCount = new Label("Characters: 0");
 
-    inputText.textProperty().addListener((observable, oldText, newText) -> {
-    characterCount.setText("Characters: " + newText.length());
+        inputText.textProperty().addListener((observable, oldText, newText) -> {
+        characterCount.setText("Characters: " + newText.length());
         });
+
+        Label outputLabel = new Label("Encrypted text");
+
+        TextArea outputText = new TextArea();
+        outputText.setPromptText("Your encrypted text will appear here...");
+        outputText.setEditable(false);
+        outputText.setPrefHeight(100);
 
         Button encryptButton = new Button("🔒 Encrypt");
 
@@ -39,7 +46,7 @@ public class EncryptionUI extends Application {
             try {
                 String encryptedText = AESEncryption.encrypt(text);
 
-                System.out.println("Encrypted text: " + encryptedText);
+                outputText.setText(encryptedText);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -52,7 +59,9 @@ public class EncryptionUI extends Application {
                 inputLabel,
                 inputText,
                 encryptButton,
-                characterCount
+                characterCount,
+                outputLabel,
+                outputText
         );
 
         Scene scene = new Scene(layout, 500, 400);
