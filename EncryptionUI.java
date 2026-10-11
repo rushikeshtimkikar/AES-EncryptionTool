@@ -5,7 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.beans.value.ChangeListener;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 
 public class EncryptionUI extends Application {
 
@@ -29,6 +30,19 @@ public class EncryptionUI extends Application {
         Label outputLabel = new Label("Encrypted text");
 
         TextArea outputText = new TextArea();
+        Button copyButton = new Button("Copy encrypted text");
+
+        copyButton.setOnAction(event -> {
+        String encrypted = outputText.getText();
+
+        if (!encrypted.isEmpty()) {
+        ClipboardContent content = new ClipboardContent();
+        content.putString(encrypted);
+
+        Clipboard.getSystemClipboard().setContent(content);
+        copyButton.setText("Copied!");
+        }
+        });
         outputText.setPromptText("Your encrypted text will appear here...");
         outputText.setEditable(false);
         outputText.setPrefHeight(100);
@@ -61,7 +75,8 @@ public class EncryptionUI extends Application {
                 encryptButton,
                 characterCount,
                 outputLabel,
-                outputText
+                outputText,
+                copyButton     
         );
 
         Scene scene = new Scene(layout, 500, 400);
